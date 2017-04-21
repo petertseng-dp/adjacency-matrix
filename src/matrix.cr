@@ -21,7 +21,7 @@ class Matrix
     @chars.each_with_index { |row, y|
       y = y.to_u32
       row.each_with_index { |c, x|
-        next unless c.alpha?
+        next unless c.ascii_letter?
         x = x.to_u32
         DIRS.each { |dy, dx, edge|
           next if @connections[c].has_key?({dy, dx})
@@ -57,7 +57,7 @@ class Matrix
     debug "Traveling #{dy}, #{dx} from #{y}, #{x}"
     cy = y + 2 * dy
     cx = x + 2 * dx
-    until (cc = self[cy, cx]?).nil? || (cc && cc.alpha?) || cc == '#'
+    until (cc = self[cy, cx]?).nil? || (cc && cc.ascii_letter?) || cc == '#'
       cy += dy
       cx += dx
     end
